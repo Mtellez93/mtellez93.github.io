@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batallas 5 Vidas - MOY666 Products</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; background: #05081c; color: white; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* BARRA SUPERIOR (8%) */
+        .main-header { 
+            height: 8vh; 
+            background: #1a1a2e; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 10px; 
+            border-bottom: 2px solid #ffd700; 
+            flex-shrink: 0; 
+            gap: 8px;
+        }
+
+        .group { display: flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: bold; color: #aaa; }
+        .val { color: #fff; min-width: 12px; text-align: center; font-size: 0.8rem; }
+        
+        .btn-action { background: #333; color: white; border: none; padding: 3px 6px; cursor: pointer; border-radius: 3px; font-weight: bold; font-size: 0.65rem; }
+        .btn-list { background: #28a745; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: bold; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
+
+        .btn-genre { background: #2e3b8b; color: white; border: none; padding: 5px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        .btn-genre:disabled { opacity: 0.2; }
+
+        .yt-input { background: #000; border: 1px solid #444; color: #ffd700; padding: 4px 8px; border-radius: 4px; font-size: 0.65rem; width: 120px; outline: none; }
+        .btn-load { background: #ff4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; cursor: pointer; }
+
+        .timer-zone { display: flex; align-items: center; gap: 5px; background: #000; padding: 2px 8px; border-radius: 5px; border: 1px solid #444; }
+        #timer-display { font-family: monospace; font-size: 1.1rem; color: #f7b500; font-weight: bold; min-width: 50px; text-align: center; }
+
+        .btn-save { background: #ffd700; color: #000; padding: 5px 12px; border-radius: 4px; font-weight: 900; border: none; cursor: pointer; font-size: 0.7rem; }
+        .btn-save.locked { background: #4CAF50; color: white; }
+
+        /* VIDEO (45%) */
+        .video-section { height: 45vh; background: #000; position: relative; display: flex; justify-content: center; align-items: center; flex-shrink: 0; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; position: absolute; z-index: 2; background: transparent; }
+        .logo-bg { height: 97%; max-width: 90%; object-fit: contain; opacity: 0.50; z-index: 1; transition: transform 0.3s ease; }
+
+        /* TABLERO (44%) */
+        .board-section { height: 44vh; display: flex; overflow-x: auto; padding: 8px; gap: 10px; background: radial-gradient(circle at center, #1e2a78 0%, #05081c 90%); align-items: stretch; justify-content: center; }
+        
+        .mc-card { 
+            flex: 0 0 200px; 
+            height: 100%; 
+            background: rgba(255,255,255,0.03); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 8px; 
+            padding: 8px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start;
+        }
+        
+        .mc-card.defensor { border: 2px solid #4CAF50; background: rgba(76, 175, 80, 0.08); }
+        .mc-card.retador { border: 2px solid #f7b500; background: rgba(247, 181, 0, 0.08); }
+        .mc-card.out { opacity: 0.1; filter: grayscale(1); }
+
+        .badge { font-size: 0.6rem; font-weight: 900; text-align: center; text-transform: uppercase; margin-bottom: 4px; visibility: hidden; padding: 2px; border-radius: 3px; }
+        .defensor .badge { visibility: visible; background: #4CAF50; color: white; }
+        .retador .badge { visibility: visible; background: #f7b500; color: black; }
+
+        .name-input { background: rgba(255,255,255,0.05); border: 1px solid #444; color: white; text-align: center; font-weight: bold; font-size: 0.9rem; padding: 4px 0; border-radius: 4px; width: 100%; display: block; margin: 0 auto; }
+        .locked .name-input { border: none; background: transparent; font-size: 1.2rem; color: #ffd700; pointer-events: none; }
+
+        .hearts { display: flex; justify-content: center; gap: 2px; margin: 6px 0; }
+        .heart { font-size: 1.1rem; color: #ff4444; cursor: pointer; }
+        .heart.lost { opacity: 0.1; }
+
+        /* Filas de género ACTUALIZADAS */
+        .genre-list { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; }
+        .genre-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 10px; background: rgba(255,255,255,0.06); border-radius: 4px; }
+        .genre-txt { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: #eee; letter-spacing: 0.5px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #fff; background: #8ce68c; }
+        .dot.used { background: #222 !important; border-color: #444 !important; }
+
+        /* DISCLAIMER (3%) */
+        .disclaimer { height: 3vh; display: flex; align-items: center; justify-content: center; background: #05081c; color: rgba(255,255,255,0.3); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.5px; border-top: 1px solid rgba(255,255,255,0.05); flex-shrink: 0; }
+
+        .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; }
+        .modal { background: #1a1a2e; border: 2px solid #ffd700; padding: 20px; border-radius: 10px; text-align: center; }
+        #win { display: none; position: fixed; inset: 0; background: #000; z-index: 200; flex-direction: column; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div style="display: flex; gap: 8px; align-items: center;">
+            <div class="group">MCs: 
+                <button class="btn-action" onclick="adj('totalMCs', -1)">-</button>
+                <span class="val" id="l-totalMCs">5</span>
+                <button class="btn-action" onclick="adj('totalMCs', 1)">+</button>
+            </div>
+            <div class="group">VIDAS: 
+                <button class="btn-action" onclick="adj('startLives', -1)">-</button>
+                <span class="val" id="l-startLives">5</span>
+                <button class="btn-action" onclick="adj('startLives', 1)">+</button>
+            </div>
+            <button class="btn-save" id="lock-btn" onclick="tglL()">💾 GUARDAR</button>
+        </div>
+
+        <div style="display: flex; gap: 4px; flex-grow: 1; justify-content: center; padding: 0 5px; border-left: 1px solid #333; border-right: 1px solid #333; align-items: center;">
+            <button class="btn-genre" onclick="play(0)">BoomBap</button>
+            <button class="btn-genre" onclick="play(1)">Trap</button>
+            <button class="btn-genre" onclick="play(2)">Reggae</button>
+            <button class="btn-genre" onclick="play(3)">Rock</button>
+            <button class="btn-genre" onclick="play(4)">D.Tempo</button>
+            <a href="https://docs.google.com/spreadsheets/d/1a5DDloTeoj5TnJ6c3zgcRrfCpfnVBxgc4QtME7ko0Ws/" target="_blank" class="btn-list">LISTA 🔗</a>
+            <input type="text" id="ytUrl" class="yt-input" placeholder="ID o Link YT">
+            <button class="btn-load" onclick="loadManualYt()">CARGAR</button>
+        </div>
+
+        <div style="display: flex; gap: 6px; align-items: center;">
+            <div class="timer-zone">
+                <button class="btn-action" onclick="adjTime(-30)">-30s</button>
+                <span id="timer-display">01:00</span>
+                <button class="btn-action" onclick="adjTime(30)">+30s</button>
+                <button class="btn-action" style="background:#f7b500; color:#000;" onclick="tglT()">⏱</button>
+            </div>
+            <button class="btn-action" style="background:#600;" onclick="location.reload()">R</button>
+        </div>
+    </header>
+
+    <section class="video-section">
+        <img src="https://raw.githubusercontent.com/Mtellez93/5Vidas/refs/heads/main/logo.png" class="logo-bg" alt="Logo">
+        <iframe id="vid" src="" allow="autoplay"></iframe>
+    </section>
+
+    <main class="board-section" id="board"></main>
+
+    <footer class="disclaimer">
+        Este producto tiene fines estrictamente recreativos y está libre de fines de lucro.
+    </footer>
+
+    <div id="m-confirm" class="modal-bg">
+        <div class="modal">
+            <h3 id="m-msg" style="font-size: 1rem; margin-bottom: 15px;"></h3>
+            <button class="btn-save" style="background:#4CAF50; color:white;" onclick="confirm(true)">SÍ, PERDIÓ</button>
+            <button class="btn-save" style="background:#f44; color:white; margin-left:10px;" onclick="confirm(false)">NO</button>
+        </div>
+    </div>
+
+    <div id="win">
+        <h1 style="letter-spacing:10px; font-size: 2rem;">¡CAMPEÓN!</h1>
+        <div id="win-name" style="font-size:4rem; color:#ffd700; font-weight:900;"></div>
+        <button class="btn-save" style="margin-top:20px; padding:15px 40px;" onclick="location.reload()">NUEVA BATALLA</button>
+    </div>
+
+    <script>
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/1a5DDloTeoj5TnJ6c3zgcRrfCpfnVBxgc4QtME7ko0Ws/gviz/tq?tqx=out:csv`;
+        let cfg = { totalMCs: 5, startLives: 5, locked: false };
+        let mcs = [], beats = [[],[],[],[],[]], defIdx = 0, retIdx = 1, bSel = false, pIdx = null;
+        let s = 60, t, r = false;
+
+        function adj(k, v) { if(!cfg.locked) { let n = cfg[k]+v; if(n>=2 && n<=5){ cfg[k]=n; document.getElementById(`l-${k}`).innerText=n; init(); } } }
+        function init() { mcs = Array(cfg.totalMCs).fill().map((_, i) => ({ name: `MC ${i+1}`, lives: cfg.startLives, out: false, used: [false,false,false,false,false] })); render(); }
+        function adjTime(v) { s = Math.max(0, s + v); upT(); }
+        
+        function tglL() { 
+            cfg.locked = !cfg.locked; 
+            if(cfg.locked) document.querySelectorAll('.name-input').forEach((el, i) => mcs[i].name = el.value);
+            document.getElementById('lock-btn').innerText = cfg.locked ? "🔓 EDITAR" : "💾 GUARDAR";
+            document.getElementById('lock-btn').classList.toggle('locked');
+            render(); 
+        }
+
+        function render() {
+            const b = document.getElementById('board'); b.innerHTML = "";
+            mcs.forEach((m, i) => {
+                let c = document.createElement('div');
+                c.className = `mc-card ${m.out?'out':''} ${cfg.locked&&i===defIdx?'defensor':''} ${cfg.locked&&i===retIdx?'retador':''}`;
+                c.innerHTML = `
+                    <div class="badge">${i===defIdx?'Defensor':'Retador'}</div>
+                    <input class="name-input" value="${m.name}" ${cfg.locked?'disabled':''}>
+                    <div class="hearts">${Array(cfg.startLives).fill().map((_, l) => `<span class="heart ${l>=m.lives?'lost':''}" onclick="lose(${i})">❤️</span>`).join('')}</div>
+                    <div class="genre-list">${["BoomBap","Trap","Reggae","Rock","D.Tempo"].map((g, gi) => `
+                        <div class="genre-row"><span class="genre-txt">${g}</span><div class="dot ${m.used[gi]?'used':''}"></div></div>
+                    `).join('')}</div>`;
+                b.appendChild(c);
+            });
+            document.querySelectorAll('.btn-genre').forEach((b, i) => b.disabled = !cfg.locked || bSel || (retIdx!==-1 && mcs[retIdx].used[i]));
+        }
+
+        function loadManualYt() {
+            let val = document.getElementById('ytUrl').value.trim();
+            if(!val) return;
+            let id = "";
+            if(val.length === 11) id = val;
+            else {
+                let m = val.match(/[a-zA-Z0-9_-]{11}/);
+                if(m) id = m[0];
+            }
+            if(id) {
+                document.getElementById('vid').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+                bSel = true;
+                render();
+            }
+        }
+
+        function lose(i) { if(bSel && cfg.locked && !mcs[i].out && (i===defIdx || i===retIdx)) { pIdx=i; document.getElementById('m-msg').innerText=`¿${mcs[i].name} perdió una vida?`; document.getElementById('m-confirm').style.display='flex'; } }
+        function confirm(v) {
+            document.getElementById('m-confirm').style.display='none';
+            if(v && pIdx!==null) {
+                mcs[pIdx].lives--; if(mcs[pIdx].lives<=0) mcs[pIdx].out=true;
+                if(pIdx===defIdx) { defIdx=retIdx; retIdx=findN(retIdx); } else { retIdx=findN(retIdx); }
+                bSel=false; stopT(); render(); checkW();
+            } pIdx=null;
+        }
+
+        function findN(c) { for(let i=1; i<=mcs.length; i++){ let n=(c+i)%mcs.length; if(!mcs[n].out && n!==defIdx) return n; } return -1; }
+        function checkW() { if(retIdx===-1) { document.getElementById('win-name').innerText=mcs[defIdx].name; document.getElementById('win').style.display='flex'; confetti(); } }
+
+        async function fetchB() { try { const r = await fetch(SHEET_URL); const t = await r.text(); const rows = t.replace(/"/g,'').split('\n').slice(1); rows.forEach(row => { row.split(',').forEach((u,i) => { let m = u.match(/[a-zA-Z0-9_-]{11}/); if(m && i<5) beats[i].push(m[0]); }); }); } catch(e){} }
+        function play(gi) { if(!cfg.locked || bSel) return; let l = beats[gi]; if(!l.length) return; mcs[retIdx].used[gi]=true; bSel=true; document.getElementById('vid').src = `https://www.youtube.com/embed/${l[Math.floor(Math.random()*l.length)]}?autoplay=1`; render(); }
+        function tglT() { if(!cfg.locked) return; if(r) stopT(); else { r=true; t=setInterval(() => { s--; upT(); if(s<=0) stopT(); }, 1000); } }
+        function stopT() { clearInterval(t); r=false; upT(); }
+        function upT() { let m=Math.floor(s/60), sec=s%60; document.getElementById('timer-display').innerText=`${m.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; }
+
+        window.onload = () => { init(); fetchB(); upT(); };
+    </script>
+</body>
+</html>
