@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Proyectos | Dashboard</title>
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Fuente -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- BONUS: Ocultar QR en Mobile -->
+    <style>
+        @media (max-width: 768px) {
+            .qr-code-section {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,28 +28,38 @@
     </header>
 
     <main class="dashboard-container">
+
         <div class="card">
             <div class="card-icon">🎤</div>
             <h2>Red Bull Batalla</h2>
             <p>Simulador de 5 Vidas para entrenamiento de Freestyle.</p>
-            <a href="https://mtellez.online/5Vidas/" target="_blank" class="btn">Abrir Simulador</a>
+            <a href="https://mtellez.online/5Vidas/" target="_blank" class="btn">
+                Abrir Simulador
+            </a>
         </div>
 
         <div class="card">
             <div class="card-icon">📺</div>
             <h2>Adivina Quién (TV)</h2>
             <p>Tablero principal para mostrar en la pantalla del salón.</p>
-            <a href="https://adivinaquien.mtellez.online" target="_blank" class="btn btn-server">Iniciar Servidor</a>
+            <a href="https://adivinaquien.mtellez.online" target="_blank" class="btn btn-server">
+                Iniciar Servidor
+            </a>
         </div>
 
         <div class="card">
             <div class="card-icon">📱</div>
             <h2>Adivina Quién (Móvil)</h2>
             <p>Control remoto para que los jugadores elijan personajes.</p>
-            <a href="https://adivinaquien.mtellez.online/mobile.html" target="_blank" class="btn btn-client">Abrir Cliente</a>
+
+            <a href="https://adivinaquien.mtellez.online/mobile.html" target="_blank" class="btn btn-client">
+                Abrir Cliente
+            </a>
+
+            <!-- QR SOLO DESKTOP -->
             <div class="qr-code-section">
                 <p>O escanea para jugar:</p>
-                <img src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://adivinaquien.mtellez.online/mobile.html" alt="QR Code Adivina Quién Móvil">
+                <div id="qrMobile"></div>
             </div>
         </div>
 
@@ -44,13 +67,31 @@
             <div class="card-icon">🧠</div>
             <h2>Juego de Memoria</h2>
             <p>Pon a prueba tu memoria con este desafiante juego de cartas.</p>
-            <a href="https://memoria.mtellez.online" target="_blank" class="btn btn-memory">Jugar</a>
+            <a href="https://memoria.mtellez.online" target="_blank" class="btn btn-memory">
+                Jugar
+            </a>
         </div>
+
     </main>
 
     <footer>
         <p>Desarrollado por MTellez93 &copy; 2025</p>
     </footer>
+
+    <!-- Librería QR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- Generación del QR -->
+    <script>
+        new QRCode(document.getElementById("qrMobile"), {
+            text: "https://adivinaquien.mtellez.online/mobile.html",
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
 
 </body>
 </html>
