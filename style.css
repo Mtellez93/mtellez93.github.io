@@ -41,6 +41,9 @@ header h1 {
     border-radius: 15px;
     text-align: center;
     transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex; /* Para mejor alineación del contenido, especialmente con el QR */
+    flex-direction: column;
+    justify-content: space-between; /* Empuja el footer hacia abajo */
 }
 
 .card:hover {
@@ -61,6 +64,7 @@ header h1 {
     font-size: 0.9rem;
     color: #94a3b8;
     margin-bottom: 25px;
+    flex-grow: 1; /* Hace que el párrafo ocupe el espacio disponible */
 }
 
 .btn {
@@ -72,6 +76,7 @@ header h1 {
     border-radius: 8px;
     font-weight: bold;
     transition: background 0.3s;
+    margin-top: auto; /* Empuja el botón hacia la parte inferior de la tarjeta */
 }
 
 .btn:hover {
@@ -81,6 +86,31 @@ header h1 {
 /* Diferenciación de colores para botones opcional */
 .btn-server { background-color: #f59e0b; } /* Naranja */
 .btn-client { background-color: #10b981; } /* Verde */
+.btn-memory { background-color: #6366f1; } /* Púrpura */
+
+
+/* Estilos para el QR Code */
+.qr-code-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #334155;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.qr-code-section p {
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    color: #cbd5e1;
+}
+
+.qr-code-section img {
+    border: 3px solid #6366f1; /* Un borde para que el QR resalte un poco */
+    border-radius: 5px;
+}
+
 
 footer {
     margin-top: auto;
