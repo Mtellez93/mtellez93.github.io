@@ -56,7 +56,6 @@
                 Abrir Cliente
             </a>
 
-            <!-- QR SOLO DESKTOP -->
             <div class="qr-code-section">
                 <p>O escanea para jugar:</p>
                 <div id="qrMobile"></div>
@@ -67,9 +66,16 @@
             <div class="card-icon">🧠</div>
             <h2>Juego de Memoria</h2>
             <p>Pon a prueba tu memoria con este desafiante juego de cartas.</p>
+
             <a href="https://memoria.mtellez.online" target="_blank" class="btn btn-memory">
                 Jugar
             </a>
+
+            <!-- QR Juego de Memoria -->
+            <div class="qr-code-section">
+                <p>O escanea para jugar:</p>
+                <div id="qrMemory"></div>
+            </div>
         </div>
 
     </main>
@@ -81,10 +87,19 @@
     <!-- Librería QR -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <!-- Generación del QR -->
+    <!-- Generación de QRs -->
     <script>
         new QRCode(document.getElementById("qrMobile"), {
             text: "https://adivinaquien.mtellez.online/mobile.html",
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        new QRCode(document.getElementById("qrMemory"), {
+            text: "https://memoria.mtellez.online",
             width: 150,
             height: 150,
             colorDark: "#000000",
