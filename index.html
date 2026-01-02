@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Proyectos | Dashboard</title>
+    <title>Miguel Tellez Dashboard</title>
 
     <!-- Estilos -->
     <link rel="stylesheet" href="style.css">
@@ -11,7 +11,7 @@
     <!-- Fuente -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <!-- BONUS: Ocultar QR en Mobile -->
+    <!-- Ocultar QR en Mobile -->
     <style>
         @media (max-width: 768px) {
             .qr-code-section {
@@ -22,91 +22,110 @@
 </head>
 <body>
 
-    <header>
-        <h1>Mi Biblioteca de Proyectos</h1>
-        <p>Selecciona una experiencia para comenzar</p>
-    </header>
+<header>
+    <h1>Mi Biblioteca de Proyectos</h1>
+    <p>Selecciona una experiencia para comenzar</p>
+</header>
 
-    <main class="dashboard-container">
+<main class="dashboard-container">
 
-        <div class="card">
-            <div class="card-icon">🎤</div>
-            <h2>Red Bull Batalla</h2>
-            <p>Simulador de 5 Vidas para entrenamiento de Freestyle.</p>
-            <a href="https://mtellez.online/5Vidas/" target="_blank" class="btn">
-                Abrir Simulador
-            </a>
+    <!-- Red Bull -->
+    <div class="card">
+        <div class="card-icon">🎤</div>
+        <h2>Red Bull Batalla</h2>
+        <p>Simulador de 5 Vidas para entrenamiento de Freestyle.</p>
+        <a href="https://mtellez.online/5Vidas/" target="_blank" class="btn">
+            Abrir Simulador
+        </a>
+    </div>
+
+    <!-- Adivina Quién TV -->
+    <div class="card">
+        <div class="card-icon">📺</div>
+        <h2>Adivina Quién (TV)</h2>
+        <p>Tablero principal para mostrar en la pantalla del salón.</p>
+        <a href="https://adivinaquien.mtellez.online" target="_blank" class="btn btn-server">
+            Iniciar Servidor
+        </a>
+    </div>
+
+    <!-- Adivina Quién Móvil -->
+    <div class="card">
+        <div class="card-icon">📱</div>
+        <h2>Adivina Quién (Móvil)</h2>
+        <p>Control remoto para que los jugadores elijan personajes.</p>
+
+        <a href="https://adivinaquien.mtellez.online/mobile.html" target="_blank" class="btn btn-client">
+            Abrir Cliente
+        </a>
+
+        <div class="qr-code-section">
+            <p>O escanea para jugar:</p>
+            <div id="qrMobile"></div>
         </div>
+    </div>
 
-        <div class="card">
-            <div class="card-icon">📺</div>
-            <h2>Adivina Quién (TV)</h2>
-            <p>Tablero principal para mostrar en la pantalla del salón.</p>
-            <a href="https://adivinaquien.mtellez.online" target="_blank" class="btn btn-server">
-                Iniciar Servidor
-            </a>
+    <!-- Juego de Memoria -->
+    <div class="card">
+        <div class="card-icon">🧠</div>
+        <h2>Juego de Memoria</h2>
+        <p>Pon a prueba tu memoria con este desafiante juego de cartas.</p>
+
+        <a href="https://memoria.mtellez.online" target="_blank" class="btn btn-memory">
+            Jugar
+        </a>
+
+        <div class="qr-code-section">
+            <p>O escanea para jugar:</p>
+            <div id="qrMemory"></div>
         </div>
+    </div>
 
-        <div class="card">
-            <div class="card-icon">📱</div>
-            <h2>Adivina Quién (Móvil)</h2>
-            <p>Control remoto para que los jugadores elijan personajes.</p>
+    <!-- Ahorcado -->
+    <div class="card">
+        <div class="card-icon">🪢</div>
+        <h2>Ahorcado</h2>
+        <p>Juego clásico donde debes adivinar la palabra oculta letra por letra.</p>
 
-            <a href="https://adivinaquien.mtellez.online/mobile.html" target="_blank" class="btn btn-client">
-                Abrir Cliente
-            </a>
+        <a href="https://ahorcado-3d9i.onrender.com/" target="_blank" class="btn btn-server">
+            Iniciar Servidor
+        </a>
 
-            <div class="qr-code-section">
-                <p>O escanea para jugar:</p>
-                <div id="qrMobile"></div>
-            </div>
+        <div class="qr-code-section">
+            <p>Escanea para jugar:</p>
+            <div id="qrHangman"></div>
         </div>
+    </div>
 
-        <div class="card">
-            <div class="card-icon">🧠</div>
-            <h2>Juego de Memoria</h2>
-            <p>Pon a prueba tu memoria con este desafiante juego de cartas.</p>
+</main>
 
-            <a href="https://memoria.mtellez.online" target="_blank" class="btn btn-memory">
-                Jugar
-            </a>
+<footer>
+    <p>Desarrollado por MTellez93 &copy; 2025</p>
+</footer>
 
-            <!-- QR Juego de Memoria -->
-            <div class="qr-code-section">
-                <p>O escanea para jugar:</p>
-                <div id="qrMemory"></div>
-            </div>
-        </div>
+<!-- Librería QR -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    </main>
+<!-- Generación de QRs -->
+<script>
+    new QRCode(document.getElementById("qrMobile"), {
+        text: "https://adivinaquien.mtellez.online/mobile.html",
+        width: 150,
+        height: 150
+    });
 
-    <footer>
-        <p>Desarrollado por MTellez93 &copy; 2025</p>
-    </footer>
+    new QRCode(document.getElementById("qrMemory"), {
+        text: "https://memoria.mtellez.online",
+        width: 150,
+        height: 150
+    });
 
-    <!-- Librería QR -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-    <!-- Generación de QRs -->
-    <script>
-        new QRCode(document.getElementById("qrMobile"), {
-            text: "https://adivinaquien.mtellez.online/mobile.html",
-            width: 150,
-            height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-
-        new QRCode(document.getElementById("qrMemory"), {
-            text: "https://memoria.mtellez.online",
-            width: 150,
-            height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-    </script>
+    new QRCode(document.getElementById("qrHangman"), {
+        text: "https://ahorcado-3d9i.onrender.com/mobil.html",
+        width: 150,
+        height: 150
+    });
+</script>
 
 </body>
 </html>
