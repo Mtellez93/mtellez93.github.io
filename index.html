@@ -111,7 +111,24 @@
             <div id="qrBasta"></div>
         </div>
     </div>
+    
+    <!-- SCRABBLE -->
+    <div class="card">
+        <div class="card-icon">✍️</div>
+        <h2>Basta</h2>
+        <p>
+            Juego Clasico de Scrabble.
+        </p>
 
+        <a href="https://scrabble-a0jd.onrender.com/" target="_blank" class="btn btn-server">
+            Iniciar Servidor
+        </a>
+
+        <div class="qr-code-section">
+            <p>Escanea para jugar:</p>
+            <div id="qrScrabble"></div>
+        </div>
+    </div>
 </main>
 
 <footer>
@@ -146,6 +163,13 @@
         width: 150,
         height: 150
     });
+    
+    new QRCode(document.getElementById("qrScrabble"), {
+        text: "https://scrabble-a0jd.onrender.com/mobil.html",
+        width: 150,
+        height: 150
+    });
+
 </script>
 
 </body>
