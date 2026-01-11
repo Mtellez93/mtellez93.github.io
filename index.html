@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miguel Tellez Dashboard</title>
+    <title>Mis Proyectos | Dashboard</title>
+
+    <!-- Favicon desde la raíz -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
     <!-- Estilos -->
     <link rel="stylesheet" href="style.css">
@@ -39,33 +42,28 @@
         </a>
     </div>
 
-    <!-- Adivina Quién TV -->
+    <!-- ADIVINA QUIÉN -->
     <div class="card">
-        <div class="card-icon">📺</div>
-        <h2>Adivina Quién (TV)</h2>
-        <p>Tablero principal para mostrar en la pantalla del salón.</p>
+        <div class="card-icon">🕵️‍♂️</div>
+        <h2>Adivina Quién</h2>
+        <p>
+            Juego multijugador donde el servidor muestra el tablero
+            y los jugadores usan su celular como control.
+        </p>
+
+        <!-- Servidor -->
         <a href="https://adivinaquien.mtellez.online" target="_blank" class="btn btn-server">
             Iniciar Servidor
         </a>
-    </div>
 
-    <!-- Adivina Quién Móvil -->
-    <div class="card">
-        <div class="card-icon">📱</div>
-        <h2>Adivina Quién (Móvil)</h2>
-        <p>Control remoto para que los jugadores elijan personajes.</p>
-
-        <a href="https://adivinaquien.mtellez.online/mobile.html" target="_blank" class="btn btn-client">
-            Abrir Cliente
-        </a>
-
+        <!-- Cliente -->
         <div class="qr-code-section">
-            <p>O escanea para jugar:</p>
-            <div id="qrMobile"></div>
+            <p>Escanea para unirte como jugador:</p>
+            <div id="qrAdivina"></div>
         </div>
     </div>
 
-    <!-- Juego de Memoria -->
+    <!-- JUEGO DE MEMORIA -->
     <div class="card">
         <div class="card-icon">🧠</div>
         <h2>Juego de Memoria</h2>
@@ -81,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Ahorcado -->
+    <!-- AHORCADO -->
     <div class="card">
         <div class="card-icon">🪢</div>
         <h2>Ahorcado</h2>
@@ -108,7 +106,7 @@
 
 <!-- Generación de QRs -->
 <script>
-    new QRCode(document.getElementById("qrMobile"), {
+    new QRCode(document.getElementById("qrAdivina"), {
         text: "https://adivinaquien.mtellez.online/mobile.html",
         width: 150,
         height: 150
