@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Proyectos | Dashboard</title>
 
-    <!-- Favicon desde la raíz -->
+    <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
     <!-- Estilos -->
@@ -32,7 +32,7 @@
 
 <main class="dashboard-container">
 
-    <!-- Red Bull -->
+    <!-- Red Bull (solo desktop / single player) -->
     <div class="card">
         <div class="card-icon">🎤</div>
         <h2>Red Bull Batalla</h2>
@@ -46,12 +46,12 @@
     <div class="card">
         <div class="card-icon">🕵️‍♂️</div>
         <h2>Adivina Quién</h2>
-        <p>
-            Juego multijugador donde el servidor muestra el tablero
-            y los jugadores usan su celular como control.
-        </p>
+        <p>Juego multijugador donde el servidor muestra el tablero y los jugadores usan su celular como control.</p>
 
-        <a href="https://adivinaquien.mtellez.online" target="_blank" class="btn btn-server">
+        <a href="https://adivinaquien.mtellez.online"
+           data-mobile="https://adivinaquien.mtellez.online/mobile.html"
+           target="_blank"
+           class="btn btn-server server-btn">
             Iniciar Servidor
         </a>
 
@@ -61,13 +61,16 @@
         </div>
     </div>
 
-    <!-- JUEGO DE MEMORIA -->
+    <!-- MEMORIA -->
     <div class="card">
         <div class="card-icon">🧠</div>
         <h2>Juego de Memoria</h2>
         <p>Pon a prueba tu memoria con este desafiante juego de cartas.</p>
 
-        <a href="https://memoria.mtellez.online" target="_blank" class="btn btn-memory">
+        <a href="https://memoria.mtellez.online"
+           data-mobile="https://memoria.mtellez.online"
+           target="_blank"
+           class="btn btn-memory server-btn">
             Jugar
         </a>
 
@@ -83,7 +86,10 @@
         <h2>Ahorcado</h2>
         <p>Juego clásico donde debes adivinar la palabra oculta letra por letra.</p>
 
-        <a href="https://ahorcado-3d9i.onrender.com/" target="_blank" class="btn btn-server">
+        <a href="https://ahorcado-3d9i.onrender.com/"
+           data-mobile="https://ahorcado-3d9i.onrender.com/mobil.html"
+           target="_blank"
+           class="btn btn-server server-btn">
             Iniciar Servidor
         </a>
 
@@ -97,12 +103,12 @@
     <div class="card">
         <div class="card-icon">✍️</div>
         <h2>Basta</h2>
-        <p>
-            Juego clásico de palabras: nombre, apellido, ciudad, fruto y más,
-            usando una letra asignada.
-        </p>
+        <p>Juego clásico de palabras: nombre, apellido, ciudad, fruto y más.</p>
 
-        <a href="https://basta-r7ai.onrender.com/" target="_blank" class="btn btn-server">
+        <a href="https://basta-r7ai.onrender.com/"
+           data-mobile="https://basta-r7ai.onrender.com/mobil.html"
+           target="_blank"
+           class="btn btn-server server-btn">
             Iniciar Servidor
         </a>
 
@@ -111,16 +117,17 @@
             <div id="qrBasta"></div>
         </div>
     </div>
-    
+
     <!-- SCRABBLE -->
     <div class="card">
         <div class="card-icon">📖</div>
         <h2>Scrabble</h2>
-        <p>
-            Juego Clasico de Scrabble.
-        </p>
+        <p>Juego clásico de Scrabble.</p>
 
-        <a href="https://scrabble-a0jd.onrender.com/" target="_blank" class="btn btn-server">
+        <a href="https://scrabble-a0jd.onrender.com/"
+           data-mobile="https://scrabble-a0jd.onrender.com/mobil.html"
+           target="_blank"
+           class="btn btn-server server-btn">
             Iniciar Servidor
         </a>
 
@@ -129,6 +136,7 @@
             <div id="qrScrabble"></div>
         </div>
     </div>
+
 </main>
 
 <footer>
@@ -138,38 +146,32 @@
 <!-- Librería QR -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<!-- Generación de QRs -->
 <script>
-    new QRCode(document.getElementById("qrAdivina"), {
-        text: "https://adivinaquien.mtellez.online/mobile.html",
-        width: 150,
-        height: 150
-    });
+/* ===============================
+   QRs (solo desktop)
+================================ */
+new QRCode(qrAdivina, { text: "https://adivinaquien.mtellez.online/mobile.html", width: 150, height: 150 });
+new QRCode(qrMemory,  { text: "https://memoria.mtellez.online", width: 150, height: 150 });
+new QRCode(qrHangman, { text: "https://ahorcado-3d9i.onrender.com/mobil.html", width: 150, height: 150 });
+new QRCode(qrBasta,   { text: "https://basta-r7ai.onrender.com/mobil.html", width: 150, height: 150 });
+new QRCode(qrScrabble,{ text: "https://scrabble-a0jd.onrender.com/mobil.html", width: 150, height: 150 });
 
-    new QRCode(document.getElementById("qrMemory"), {
-        text: "https://memoria.mtellez.online",
-        width: 150,
-        height: 150
-    });
+/* ===============================
+   MOBILE UX LOGIC
+================================ */
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-    new QRCode(document.getElementById("qrHangman"), {
-        text: "https://ahorcado-3d9i.onrender.com/mobil.html",
-        width: 150,
-        height: 150
+if (isMobile) {
+    document.querySelectorAll(".server-btn").forEach(btn => {
+        const mobileUrl = btn.dataset.mobile;
+        if (mobileUrl) {
+            btn.href = mobileUrl;
+            btn.textContent = "Jugar";
+            btn.classList.remove("btn-server");
+            btn.classList.add("btn-client");
+        }
     });
-
-    new QRCode(document.getElementById("qrBasta"), {
-        text: "https://basta-r7ai.onrender.com/mobil.html",
-        width: 150,
-        height: 150
-    });
-    
-    new QRCode(document.getElementById("qrScrabble"), {
-        text: "https://scrabble-a0jd.onrender.com/mobil.html",
-        width: 150,
-        height: 150
-    });
-
+}
 </script>
 
 </body>
