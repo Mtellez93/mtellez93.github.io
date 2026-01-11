@@ -51,12 +51,10 @@
             y los jugadores usan su celular como control.
         </p>
 
-        <!-- Servidor -->
         <a href="https://adivinaquien.mtellez.online" target="_blank" class="btn btn-server">
             Iniciar Servidor
         </a>
 
-        <!-- Cliente -->
         <div class="qr-code-section">
             <p>Escanea para unirte como jugador:</p>
             <div id="qrAdivina"></div>
@@ -95,6 +93,25 @@
         </div>
     </div>
 
+    <!-- BASTA -->
+    <div class="card">
+        <div class="card-icon">✍️</div>
+        <h2>Basta</h2>
+        <p>
+            Juego clásico de palabras: nombre, apellido, ciudad, fruto y más,
+            usando una letra asignada.
+        </p>
+
+        <a href="https://basta-r7ai.onrender.com/" target="_blank" class="btn btn-server">
+            Iniciar Servidor
+        </a>
+
+        <div class="qr-code-section">
+            <p>Escanea para jugar:</p>
+            <div id="qrBasta"></div>
+        </div>
+    </div>
+
 </main>
 
 <footer>
@@ -120,6 +137,12 @@
 
     new QRCode(document.getElementById("qrHangman"), {
         text: "https://ahorcado-3d9i.onrender.com/mobil.html",
+        width: 150,
+        height: 150
+    });
+
+    new QRCode(document.getElementById("qrBasta"), {
+        text: "https://basta-r7ai.onrender.com/mobil.html",
         width: 150,
         height: 150
     });
