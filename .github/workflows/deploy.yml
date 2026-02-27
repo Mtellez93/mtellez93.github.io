@@ -1,0 +1,21 @@
+name: Deploy Dashboard
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 5.189.170.159
+          username: miguel
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/catalogo
+            git pull
