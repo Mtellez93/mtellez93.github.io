@@ -17,7 +17,7 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     margin-top: 20px;
 }
 
@@ -28,17 +28,35 @@ header h1 {
 
 .dashboard-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1200px;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .card {
     background: #1e293b;
     border: 1px solid #334155;
-    padding: 30px;
-    border-radius: 15px;
+    padding: 20px;
+    border-radius: 12px;
     text-align: center;
     transition: transform 0.3s ease, border-color 0.3s ease;
     display: flex;
@@ -47,29 +65,30 @@ header h1 {
 }
 
 .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-6px);
     border-color: #38bdf8;
 }
 
 .card-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.card h2 {
+    font-size: 2.5rem;
     margin-bottom: 10px;
 }
 
+.card h2 {
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+}
+
 .card p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #94a3b8;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
     flex-grow: 1;
 }
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 8px 14px;
     background-color: #38bdf8;
     color: #0f172a;
     text-decoration: none;
@@ -77,6 +96,7 @@ header h1 {
     font-weight: bold;
     transition: background 0.3s;
     margin-top: auto;
+    font-size: 0.9rem;
 }
 
 .btn:hover {
@@ -86,21 +106,6 @@ header h1 {
 .btn-server { background-color: #f59e0b; }
 .btn-client { background-color: #10b981; }
 .btn-memory { background-color: #6366f1; }
-
-.qr-code-section {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #334155;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.qr-code-section p {
-    font-size: 0.8rem;
-    color: #cbd5e1;
-}
 
 footer {
     margin-top: auto;
