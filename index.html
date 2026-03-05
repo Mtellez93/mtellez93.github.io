@@ -13,15 +13,6 @@
 
     <!-- Fuente -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <!-- Ocultar QR en Mobile -->
-    <style>
-        @media (max-width: 768px) {
-            .qr-code-section {
-                display: none;
-            }
-        }
-    </style>
 </head>
 <body>
 
@@ -49,16 +40,10 @@
         <p>Juego multijugador donde el servidor muestra el tablero y los jugadores usan su celular como control.</p>
 
         <a href="https://adivina.mtellez.online"
-           data-mobile="https://adivina.mtellez.online/mobile.html"
            target="_blank"
-           class="btn btn-server server-btn">
+           class="btn btn-server">
             Iniciar Servidor
         </a>
-
-        <div class="qr-code-section">
-            <p>Escanea para unirte como jugador:</p>
-            <div id="qrAdivina"></div>
-        </div>
     </div>
 
     <!-- MEMORIA -->
@@ -68,16 +53,10 @@
         <p>Pon a prueba tu memoria con este desafiante juego de cartas.</p>
 
         <a href="https://memoria.mtellez.online"
-           data-mobile="https://memoria.mtellez.online"
            target="_blank"
-           class="btn btn-server server-btn">
+           class="btn btn-server">
             Iniciar Servidor
         </a>
-
-        <div class="qr-code-section">
-            <p>Escanea para unirte como jugador:</p>
-            <div id="qrMemory"></div>
-        </div>
     </div>
 
     <!-- AHORCADO -->
@@ -87,16 +66,10 @@
         <p>Juego clásico donde debes adivinar la palabra oculta letra por letra.</p>
 
         <a href="https://ahorcado.mtellez.online/"
-           data-mobile="https://ahorcadoahorcado.mtellez.online/mobil.html"
            target="_blank"
-           class="btn btn-server server-btn">
+           class="btn btn-server">
             Iniciar Servidor
         </a>
-
-        <div class="qr-code-section">
-            <p>Escanea para unirte como jugador:</p>
-            <div id="qrHangman"></div>
-        </div>
     </div>
 
     <!-- BASTA -->
@@ -106,16 +79,10 @@
         <p>Juego clásico de palabras: nombre, apellido, ciudad, fruto y más.</p>
 
         <a href="https://basta.mtellez.online/"
-           data-mobile="https://basta.mtellez.online/mobil.html"
            target="_blank"
-           class="btn btn-server server-btn">
+           class="btn btn-server">
             Iniciar Servidor
         </a>
-
-        <div class="qr-code-section">
-            <p>Escanea para unirte como jugador:</p>
-            <div id="qrBasta"></div>
-        </div>
     </div>
 
     <!-- SCRABBLE -->
@@ -125,18 +92,12 @@
         <p>Juego clásico de Scrabble.</p>
 
         <a href="https://scrabble.mtellez.online/"
-           data-mobile="https://scrabble.mtellez.online/mobil.html"
            target="_blank"
-           class="btn btn-server server-btn">
+           class="btn btn-server">
             Iniciar Servidor
         </a>
-
-        <div class="qr-code-section">
-            <p>Escanea para unirte como jugador:</p>
-            <div id="qrScrabble"></div>
-        </div>
     </div>
-    
+
     <!-- IMPOSTOR -->
     <div class="card">
         <div class="card-icon">🕵️‍♂️</div>
@@ -144,18 +105,12 @@
         <p>Descubre al infiltrado</p>
 
         <a href="https://impostor.mtellez.online/"
-           data-mobile="https://impostor.mtellez.online/mobil.html"
            target="_blank"
-           class="btn btn-server server-btn">
+           class="btn btn-server">
             Iniciar Servidor
         </a>
-
-        <div class="qr-code-section">
-            <p>Escanea para unirte como jugador:</p>
-            <div id="qrImpostor"></div>
-        </div>
     </div>
-    
+
     <!-- MentiraMaestra -->
     <div class="card">
         <div class="card-icon">🎭</div>
@@ -163,55 +118,16 @@
         <p>Miente con la verdad</p>
 
         <a href="https://mentiramaestra.mtellez.online/"
-           data-mobile="https://mentiramaestra.mtellez.online/player.html"
            target="_blank"
-           class="btn btn-server server-btn">
+           class="btn btn-server">
             Iniciar Servidor
         </a>
-
-        <div class="qr-code-section">
-            <p>Escanea para unirte como jugador:</p>
-            <div id="qrMentiraMaestra"></div>
-        </div>
-    </div>    
+    </div>
 </main>
 
 <footer>
     <p>Desarrollado por MTellez93 &copy; 2026</p>
 </footer>
-
-<!-- Librería QR -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-<script>
-/* ===============================
-   QRs (solo desktop)
-================================ */
-new QRCode(qrAdivina, { text: "https://adivina.mtellez.online/mobile.html", width: 150, height: 150 });
-new QRCode(qrMemory,  { text: "https://memoria.mtellez.online", width: 150, height: 150 });
-new QRCode(qrHangman, { text: "https://ahorcado.mtellez.online/mobil.html", width: 150, height: 150 });
-new QRCode(qrBasta,   { text: "https://basta.mtellez.online/mobil.html", width: 150, height: 150 });
-new QRCode(qrScrabble,{ text: "https://scrabble.mtellez.online/mobil.html", width: 150, height: 150 });
-new QRCode(qrImpostor,{ text: "https://impostor.mtellez.online/mobil.html", width: 150, height: 150 });
-new QRCode(qrMentiraMaestra,{ text: "https://mentiramaestra.mtellez.online/player.html", width: 150, height: 150 });
-
-/* ===============================
-   MOBILE UX LOGIC
-================================ */
-const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-if (isMobile) {
-    document.querySelectorAll(".server-btn").forEach(btn => {
-        const mobileUrl = btn.dataset.mobile;
-        if (mobileUrl) {
-            btn.href = mobileUrl;
-            btn.textContent = "Jugar";
-            btn.classList.remove("btn-server");
-            btn.classList.add("btn-client");
-        }
-    });
-}
-</script>
 
 </body>
 </html>
